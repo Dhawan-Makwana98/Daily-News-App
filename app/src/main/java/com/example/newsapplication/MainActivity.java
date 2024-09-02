@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
 
         String apiKey = "109358310bf14ce5b0ec3cf60aa41a61";
         String categoryURL = "https://newsapi.org/v2/top-headlines?country=in&category=" + category + "&apiKey=" + apiKey;
-        //String url = "https://newsapi.org/v2/everything?q=india&from=2024-07-15&sortBy=publishedAt&apiKey=" + apiKey;
-        String url = "https://newsapi.org/v2/top-headlines?mumbai=us&category=technology&apiKey=" + apiKey;
+        String url = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=" + apiKey;
 
         Call<NewsModal> call = category.equals("All") ? retrofitAPI.getAllNews(url) : retrofitAPI.getNewsByCategory(categoryURL);
 
@@ -101,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
                     ArrayList<Articles> articles = response.body().getArticles();
                     if (articles != null) {
                         articlesArrayList.addAll(articles);
+                    } else {
+                        Toast.makeText(MainActivity.this, "No articles found", Toast.LENGTH_SHORT).show();
                     }
                     newsRVAdapter.notifyDataSetChanged();
                 } else {
